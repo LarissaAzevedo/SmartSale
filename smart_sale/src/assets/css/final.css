@@ -41,8 +41,9 @@ header {
     border-radius: 0px 5px 5px 0px;
     width: 26px;
     height: 26px;
-    background-color: white;
     cursor: pointer;
+    color: white;
+    background-color: white;
 }
 
 .ca form .search-btn {

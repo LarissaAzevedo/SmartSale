@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { MDBBtn } from 'mdbreact';
 import Header from '../../components/header/header';
 import { MDBContainer, MDBModal, MDBModalBody, MDBModalHeader, MDBModalFooter, MDBInput } from 'mdbreact';
-import Modal from 'react-modal';
 
 class Cad_produto extends Component {
 
@@ -265,49 +264,6 @@ class Cad_produto extends Component {
                 </form>
               </MDBContainer>
             </div>
-
-            {/* <Modal>
-              <Modal.Header closeButton toggle={this.toggle}>
-                <Modal.Title>Editar - {this.state.alterarProduto.nomeProduto} </Modal.Title>
-              </Modal.Header >
-
-              <Modal.Body>
-                <MDBInput
-                  label="Produto"
-                  name="nomeProduto"
-                  value={this.state.alterarProduto.nomeProduto}
-                  onChange={this.atualizaEstadoAlterarProduto} />
-              </Modal.Body>
-
-              <Modal.Footer>
-                <button variant="secondary" onClick={this.toggle}>Fechar</button>
-                <button variant="primary" type="submit">Salvar</button>
-              </Modal.Footer>
-            </Modal> */}
-
-
-
-            {/* <section className="containerModal">
-                            <form onSubmit={this.salvarAlteracoes}>
-                                <Modal isOpen={this.state.modal} toggle={this.toggle}>
-                                    <Modal.Header toggle={this.toggle}>
-                                        Editar - {this.state.alterarProduto.nomeProduto}
-                                    </Modal.Header>
-                                    <Modal.Body>
-                                        <input
-                                            className="inputModal"
-                                            label="Produto"
-                                            name="nomeProduto"
-                                            value={this.state.alterarProduto.nomeProduto}
-                                            onChange={this.atualizaEstadoAlterarProduto} />
-                                    </Modal.Body>
-                                    <Modal.Footer>
-                                        <button color="secondary" onClick={this.toggle}>Fechar</button>
-                                        <button color="primary" type="submit">Salvar</button>
-                                    </Modal.Footer>
-                                </Modal>
-                            </form>
-                        </section> */}
           </div>
         </div>
       </div>

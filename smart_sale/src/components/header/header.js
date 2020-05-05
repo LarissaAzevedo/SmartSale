@@ -5,6 +5,9 @@ import Avatar from '../../assets/img/avatar.png';
 import LogoutIcon from '../../assets/img/logout.svg'
 import icon_search from '../../assets/img/search_icon.png';
 import { usuarioAutenticado } from '../../services/auth';
+import TextField from '@material-ui/core/TextField';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 
 class Header extends Component {
   constructor(props) {
@@ -56,9 +59,10 @@ class Header extends Component {
 
   atualizaEstado = (event) => {
     this.setState({ [event.target.name]: event.target.value });
-  }
+  };
 
   render() {
+
     return (
       <header>
         <div className="contHeader">
@@ -70,15 +74,44 @@ class Header extends Component {
                     <img src={Logo} title="Home Smart Sale" alt="logo smart sale" />
                   </Link>
                 </div>
+
                 <form onSubmit={this.filtrar}>
-                  <input type="search"
+
+
+                  {/* <input
+                    type="search"
                     placeholder="Buscar produtos, marcas e muito mais ..."
                     aria-label="Faça uma busca"
                     name="filtro"
                     onChange={this.atualizaEstado}
                     id="search-bar"
+                  /> */}
+
+                  <TextField
+                    className="input"
+                    fullWidth
+                    variant="outlined"
+                    type="search"
+                    placeholder="Buscar produtos, marcas e muito mais ..."
+                    aria-label="Faça uma busca"
+                    name="filtro"
+                    onChange={this.atualizaEstado}
+                    endAdornment={
+                      <InputAdornment position="end">
+                        <img src={icon_search} id="search-btn" type="submit" alt="Icone logo" />
+                      </InputAdornment>
+                    }
+
+                    endAdornment={
+                      <InputAdornment position="end">
+                                                <img src={icon_search} id="search-btn" type="submit" alt="Icone logo" />
+
+                      </InputAdornment>
+                    }
+
                   />
-                  <img src={icon_search} id="search-btn" type="submit" alt="Icone logo" />
+
+
                 </form>
                 <div className="botao-login">
                   {usuarioAutenticado() ?

@@ -141,6 +141,7 @@ class Cad_oferta extends Component {
                   value={this.state.postOferta.titulo}
                   onChange={this.postSetState}
                 />
+              
               </div>
               <div className="campo">
                 <select name="idProduto"

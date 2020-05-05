@@ -175,16 +175,12 @@ class Perfil extends Component {
                     {
                       parseJwt().Role == 1 &&
                       <div>
-                        <p><Link to="/cadastrocategoria" className="perfil_btn-medium">Manipular categorias</Link></p><br /><br />
-                        <p><Link to="/cadastroproduto" className="perfil_btn-medium"><span id="span_">..</span>Manipular produtos</Link></p>
+                        <Link to="/cadastrocategoria" className="perfil_btn-medium">Manipular categorias</Link>
+                        <br /><br />
+                        <Link to="/cadastroproduto" className="perfil_btn-medium"><span id="span_">..</span>Manipular produtos</Link>
                       </div>
                     }
-                    {
-                      parseJwt().Role == 2 &&
-                      <div>
-                        <p><Link to="/cadastrooferta" className="perfil_btn-medium">Cadastrar um oferta</Link></p>
-                      </div>
-                    }
+                    {parseJwt().Role == 2 && <Link to="/cadastrooferta" className="perfil_btn-medium">Cadastrar um oferta</Link>}
                   </div>
                 </div>
               </section>
