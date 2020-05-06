@@ -7,23 +7,23 @@
 > - SQL Server Express <br>
 > - SQL Server Management Studio <br>
 
-## Iniciando a Aplicação Banco de Dados
+## Iniciando o Banco de Dados da Aplicação
 > Iniciamos nosso projeto pelo Banco de Dados: <br>
 > Com o SQL Server Express e o SQL Server Management Studio instalados, no SQL Server Management Studio, fazemos a conexão com o banco e executamos (em "Nova consulta") os comandos dos arquivos DDL e DML, nessa ordem, da pasta Modelagem, dentro de bd.
 <br>
 
-## Iniciando a Aplicação BackEnd
+## Iniciando o BackEnd da Aplicação
 
-> Iniciamos nosso projeto pelo BackEnd: 
+> Iniciamos o BackEnd em um terminal com os comandos: 
 ```bash
 cd ./backend
 dotnet run
 ```
 <br>
 
-## Iniciando a Aplicação FrontEnd
+## Iniciando o FrontEnd da Aplicação
 
-> Iniciamos nosso projeto pelo FrontEnd: 
+> Iniciamos o FrontEnd em um outro terminal com os comandos: 
 ```bash
 cd ./smart_sale
 yarn start
