@@ -12,7 +12,7 @@
 > Com o SQL Server Express e o SQL Server Management Studio instalados, no SQL Server Management Studio, fazemos a conexão com o banco e executamos (em "Nova consulta") os comandos dos arquivos DDL e DML, nessa ordem, da pasta Modelagem, dentro de bd.
 <br>
 
-## Iniciando a Aplicação BacKEnd
+## Iniciando a Aplicação BackEnd
 
 > Iniciamos nosso projeto pelo BackEnd: 
 ```bash
