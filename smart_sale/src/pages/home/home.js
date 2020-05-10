@@ -182,9 +182,9 @@ class Home extends Component {
 
   render() {
     return (
-      <div className="Home">
+      <>
         <Header {...this.props} />
-        <main>
+        <main className="Home">
           <div className="home_pag">
             <div className="banner-home"></div>
             <div className="container>">
@@ -320,7 +320,7 @@ class Home extends Component {
           </div>
         </main>
         <Footer />
-      </div>
+      </>
     );
   }
 }

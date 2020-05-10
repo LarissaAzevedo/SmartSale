@@ -1,0 +1,187 @@
+.search-bar-and-menu {
+  display: flex;
+  flex-direction: column;
+  padding-top: 10px;
+}
+
+.content {
+  background-color: var(--roxo);
+  width: 1200px;
+  padding: 30px;
+  margin: auto;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-content: center;
+}
+
+.container-header {
+  background-color: var(--roxo);
+  height: auto;
+}
+
+.menu-desktop {
+  padding-top: 3px;
+  list-style: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.8em;
+  z-index: 2;
+}
+
+.search-bar {
+  border-radius: 5px 0px 0px 5px;
+  border: none;
+}
+
+.ca {
+  display: block;
+  justify-content: space-between;
+  align-items: center;
+  font-family: 'Segoe UI';
+  padding: 0px 25px;
+}
+
+.botao-login {
+  text-decoration: none;
+  color: white;
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+
+.botao-login p {
+  margin-top: -4px;
+}
+
+.logo {
+  height: 95px;
+  width: 204px;
+}
+
+.btnmenu {
+  display: none;
+}
+
+.btnclose {
+  display: none;
+}
+
+@media (max-width: 1024px) {
+  .container-header {
+    background-color: var(--verde);
+  }
+  .content {
+    width: 60vw;
+    background-color: var(--verde);
+  }
+  .search-bar {
+    display: none;
+  }
+  .menu {
+    width: 80vw;
+    position: absolute;
+    top: 110px;
+    left: 10%;
+  }
+  .logo {
+    height: 55px;
+    width: 124px;
+  }
+  .btnmenu {
+    display: none;
+  }
+  .botao-login {
+    position: relative;
+  }
+}
+
+@media (max-width: 767px) {
+  .menu-mobile {
+    height: 20vw;
+  }
+  .container-header {
+    background-color: var(--laranja);
+  }
+  .content {
+    background-color: var(--laranja);
+  }
+  .btnclose {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    color: var(--branco) !important;
+    float: right;
+    cursor: pointer;
+    top: -100px;
+  }
+  .btnmenu {
+    display: block;
+    position: fixed;
+    z-index: 1;
+    left: 40%;
+    top: -20px;
+    color: white !important;
+    width: 56px;
+    height: 56px;
+    margin: auto;
+    border-radius: 50% !important;
+    border: none;
+    cursor: pointer;
+    border-color: linear-gradient(to right, rgb(162, 0, 203), rgb(20, 204, 138));
+    background: linear-gradient(to right, rgb(162, 0, 203), rgb(20, 204, 138));
+  }
+  .botao-login {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+  }
+  .botao-login p {
+    margin-top: -10px;
+  }
+  .background-menu {
+    display: flex;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 15px 0px;
+    margin: auto;
+    text-align: center;
+    padding-top: 3px;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 0.8em;
+    z-index: 2;
+  }
+  .btnclose {
+    display: block;
+    z-index: 3;
+  }
+  .menu-desktop {
+    display: flex;
+    z-index: 2;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    text-align: center;
+    background-color: rgba(0, 0, 0, 0.9);
+    padding: 15px 0px;
+    margin: auto;
+    text-align: center;
+  }
+  .search-bar-and-menu {
+    display: none;
+  }
+  .logo {
+    height: 75px;
+    width: 164px;
+  }
+}

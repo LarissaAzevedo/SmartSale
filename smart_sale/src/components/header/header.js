@@ -3,11 +3,30 @@ import { Link } from 'react-router-dom';
 import Logo from '../../assets/img/Agrupar 110.png';
 import Avatar from '../../assets/img/avatar.png';
 import LogoutIcon from '../../assets/img/logout.svg'
-import icon_search from '../../assets/img/search_icon.png';
 import { usuarioAutenticado } from '../../services/auth';
-import TextField from '@material-ui/core/TextField';
 import InputAdornment from '@material-ui/core/InputAdornment';
+import SearchIcon from '@material-ui/icons/Search';
+import IconButton from '@material-ui/core/IconButton';
+import OutlinedInput from "@material-ui/core/OutlinedInput";
+import { withStyles } from '@material-ui/core/styles';
+import './header.css';
+import Button from '@material-ui/core/Button';
 
+const useStyles = theme => ({
+  searchBar: {
+    backgroundColor: 'white',
+    borderRadius: '4px',
+  },
+  menuButton: {
+    color: 'white',
+    textDecoration: 'none !important',
+    listStyle: 'none !important',
+    '&:hover': {
+      backgroundColor: 'white',
+      color: '#A200CB',
+    },
+  },
+});
 
 class Header extends Component {
   constructor(props) {
@@ -17,13 +36,17 @@ class Header extends Component {
       lista: [],
       btnmenu: false,
       btnclose: false,
-      estilo: "abc",
       isMenuOpen: false,
+      device: "desktop",
     }
   }
 
   toggle = () => {
     this.setState(prevState => ({ isMenuOpen: !prevState.isMenuOpen }));
+  };
+
+  componentDidUpdate() {
+    console.log("menu open: ", this.state.isMenuOpen)
   };
 
   logout = () => {
@@ -55,112 +78,89 @@ class Header extends Component {
       .catch(erro => {
         console.log(erro)
       })
-  }
+  };
 
   atualizaEstado = (event) => {
     this.setState({ [event.target.name]: event.target.value });
   };
 
   render() {
+    const { classes } = this.props;
 
     return (
-      <header>
-        <div className="contHeader">
-          <div className="container">
-            <div className="ca">
-              <div className="separador-header">
-                <div className="logo">
-                  <Link to="/">
-                    <img src={Logo} title="Home Smart Sale" alt="logo smart sale" />
-                  </Link>
-                </div>
-
-                <form onSubmit={this.filtrar}>
-
-
-                  {/* <input
-                    type="search"
-                    placeholder="Buscar produtos, marcas e muito mais ..."
-                    aria-label="Faça uma busca"
-                    name="filtro"
-                    onChange={this.atualizaEstado}
-                    id="search-bar"
-                  /> */}
-
-                  <TextField
-                    className="input"
-                    fullWidth
-                    variant="outlined"
-                    type="search"
-                    placeholder="Buscar produtos, marcas e muito mais ..."
-                    aria-label="Faça uma busca"
-                    name="filtro"
-                    onChange={this.atualizaEstado}
-                    endAdornment={
-                      <InputAdornment position="end">
-                        <img src={icon_search} id="search-btn" type="submit" alt="Icone logo" />
-                      </InputAdornment>
-                    }
-
-                    endAdornment={
-                      <InputAdornment position="end">
-                                                <img src={icon_search} id="search-btn" type="submit" alt="Icone logo" />
-
-                      </InputAdornment>
-                    }
-
-                  />
-
-
-                </form>
-                <div className="botao-login">
-                  {usuarioAutenticado() ?
-                    <Link onClick={this.logout} to="/">
-                      <img src={LogoutIcon} alt="Link para fazer logout" title="Sair" id="entrar" />
-                      <p>Sair</p>
-                    </Link>
-                    :
-                    <Link to="/login">
-                      <img src={Avatar} alt="Link para fazer login" title="Faça login" id="entrar" />
-                      <p>Entrar</p>
-                    </Link>
+      <div className="container-header">
+        <div className="content">
+          <Link to="/">
+            <img src={Logo} className="logo" title="Home Smart Sale" alt="logo smart sale" />
+          </Link>
+          <div className="search-bar-and-menu">
+            <div className="search-bar">
+              <form onSubmit={this.filtrar}>
+                <OutlinedInput
+                  className={classes.searchBar}
+                  type="search"
+                  fullWidth
+                  placeholder="Buscar produtos, marcas e muito mais ..."
+                  aria-label="Faça uma busca"
+                  name="filtro"
+                  onChange={this.atualizaEstado}
+                  endAdornment={
+                    <InputAdornment position="end">
+                      <IconButton aria-label="toggle password visibility" type="submit" edge="end">
+                        <SearchIcon />
+                      </IconButton>
+                    </InputAdornment>
                   }
-                </div>
-              </div>
-              <nav id="menu-web">
-                <div className="menu-centro">
-                  <ul className="menu" id="menu">
-                    <li><Link to="/" title="Smart sale home">Home</Link></li>
-                    <li><Link to="/quemsomos" title="Smart sale quem somos">Quem somos</Link></li>
-                    <li><Link to="/ongs" title="Smart sale ongs">ONGs</Link></li>
-                    <li><Link to="/ranking" title="Smart sale ranking">Ranking</Link></li>
-                    <li><Link to="/ofertas" title="Smart sale categorias">Ofertas</Link></li>
-                    {usuarioAutenticado() ? <Link to="/perfil" title="Smart sale perfil">Perfil</Link> : null}
-                    <li><Link to="/faq" title="Smart sale faq">FAQ</Link></li>
-                  </ul>
-                </div>
-              </nav>
-              <nav id="menu-mobile" style={{ display: this.state.isMenuOpen ? "block" : "none" }}>
-                <div className={`${this.state.isMenuOpen}` ? "menu-centro" : "hidden"}>
-                  <ul className={`${this.state.isMenuOpen}` ? "menu" : "hidden"} id={`${this.state.isMenuOpen}` ? "menu" : "hidden"}>
-                    <li><Link to="/" title="Smart sale home">Home</Link></li>
-                    <li><Link to="/quemsomos" title="Smart sale quem somos">Quem somos</Link></li>
-                    <li><Link to="/ongs" title="Smart sale ongs">ONGs</Link></li>
-                    <li><Link to="/ranking" title="Smart sale ranking">Ranking</Link></li>
-                    <li><Link to="/ofertas" title="Smart sale categorias">Ofertas</Link></li>
-                    {usuarioAutenticado() ? <Link to="/perfil" title="Smart sale perfil">Perfil</Link> : null}
-                    <li><Link to="/faq" title="Smart sale faq">FAQ</Link></li>
-                  </ul>
-                </div>
-                {this.state.isMenuOpen ? <a id="btnclose" className="btnclose" onClick={this.toggle}><i className="fa fa-times"></i></a> : null}
-              </nav>
-              <button id="btnmenu" className="btnmenu" onClick={this.toggle} ><i className="fa fa-bars fa-lg"></i></button>
+                />
+              </form>
+            </div>
+
+            <div id="menu" className={this.state.isMenuOpen ? "menu-mobile isOpen" : "menu menu-desktop"} >
+              {/* <div> */}
+                <Link to="/" title="Smart sale home">
+                  <Button className={classes.menuButton} variant="button">Home</Button>
+                </Link>
+                <Link to="/quemsomos" title="Smart sale quem somos">
+                  <Button className={classes.menuButton} variant="button">Quem somos</Button>
+                </Link>
+                <Link to="/ongs" title="Smart sale ongs">
+                  <Button className={classes.menuButton} variant="button">ONGs</Button>
+                </Link>
+                <Link to="/ranking" title="Smart sale ranking">
+                  <Button className={classes.menuButton} variant="button">Ranking</Button>
+                </Link>
+                <Link to="/ofertas" title="Smart sale categorias">
+                  <Button className={classes.menuButton} variant="button">Ofertas</Button>
+                </Link>
+                {usuarioAutenticado() ?
+                  <Link to="/perfil" title="Smart sale perfil">
+                    <Button className={classes.menuButton} variant="button">Perfil</Button>
+                  </Link>
+                  : null}
+                <Link to="/faq" title="Smart sale faq">
+                  <Button className={classes.menuButton} variant="button">FAQ</Button>
+                </Link>
+              {/* </div> */}
+
             </div>
           </div>
+          {usuarioAutenticado() ?
+            <Link onClick={this.logout} className="botao-login" to="/">
+              <img src={LogoutIcon} alt="Link para fazer logout" title="Sair" id="entrar" />
+              <p>Sair</p>
+            </Link>
+            :
+            <Link to="/login" className="botao-login">
+              <img src={Avatar} alt="Link para fazer login" title="Faça login" id="entrar" />
+              <p>Entrar</p>
+            </Link>
+          }
         </div>
-      </header>
+        {this.state.device === "celular" ? <Button className="btnmenu" onClick={this.toggle}><i className="fa fa-bars fa-lg" /></Button> : null}
+        {this.state.isMenuOpen ? <Button className="btnclose" onClick={this.toggle}><i className="fa fa-times fa-lg"></i></Button> : null}
+      </div>
     );
   }
 }
-export default Header;
+export default withStyles(useStyles)(Header);
 
