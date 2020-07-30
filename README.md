@@ -1,5 +1,5 @@
 <p align="center">
- <img width="100%" src="https://user-images.githubusercontent.com/29931326/88867214-34182380-d1e3-11ea-9795-649ae12c1b32.png" />
+ <img width="100%" src="https://user-images.githubusercontent.com/29931326/88867527-17302000-d1e4-11ea-859a-5fc2e6c236ea.png" />
 </p>
 
 # SMART SALE - Marketplace - FrontEnd - BackEnd - Banco de Dados
