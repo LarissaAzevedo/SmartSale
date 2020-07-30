@@ -1,3 +1,7 @@
+<p align="center">
+ <img width="100%" src="https://user-images.githubusercontent.com/29931326/88867214-34182380-d1e3-11ea-9795-649ae12c1b32.png" />
+</p>
+
 # SMART SALE - Marketplace - FrontEnd - BackEnd - Banco de Dados
 
 ## Requisitos
