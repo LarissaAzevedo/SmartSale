@@ -1,4 +1,4 @@
-import React, { Component } from "react";
+import React, { Component , useState} from "react";
 import { Link } from 'react-router-dom';
 import Logo from '../../assets/img/Agrupar 110.png';
 import Avatar from '../../assets/img/avatar.png';
@@ -41,12 +41,15 @@ class Header extends Component {
     }
   }
 
+  // const [filter, setFilter] = useState();
+  // const [list, setList] = useState([]);
+  // const [btnMenu, setBtnMenu] = useState(false);
+  // const [btnClose, setBtnClose] = useState(false);
+  // const [isMenuOpen, setIsMenuOpen] = useState(false);
+  // const [device, setdevice] = useState("desktop");
+
   toggle = () => {
     this.setState(prevState => ({ isMenuOpen: !prevState.isMenuOpen }));
-  };
-
-  componentDidUpdate() {
-    console.log("menu open: ", this.state.isMenuOpen)
   };
 
   logout = () => {

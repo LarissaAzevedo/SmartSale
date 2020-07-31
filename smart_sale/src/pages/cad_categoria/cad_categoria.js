@@ -8,92 +8,80 @@ class Cad_categoria extends Component {
     super();
 
     this.state = {
+      // adicionar loading nas tabelas
       modal: false,
-      listaCategorias: [],
-      categoriaCadastrando: {
-        nomeCategoria: ""
+      categoryList: [],
+      erroMsg: "",
+      newCategory: {
+        categoryName: ""
       },
-      categoriaAlterando: {
-        idCategoria: "",
-        nomeCategoria: ""
+      changeCategory: {
+        categoryId: "",
+        categoryName: ""
       }
     }
-    this.cadastrarCategoria = this.cadastrarCategoria.bind(this);
-    this.deletarCategoria = this.deletarCategoria.bind(this);
-    this.salvarAlteracoes = this.salvarAlteracoes.bind(this);
   }
-
-  // UNSAFE_componentWillMount() {
-  //   // document.title = this.props.titulo_pagina;
-  //   console.log("Carregando...");
-  // }
 
   componentDidMount() {
-    console.log("Carregado");
-    this.listarCategorias();
+    this.getCategory();
   }
 
-  // componentDidUpdate() {
-  //   console.log("Atualizando");
-  // }
-
-  // componentWillUnmount() {
-  //   console.log("Saindo");
-  // }
-
-  listarCategorias = () => {
+  getCategory = () => {
     fetch("http://localhost:5000/api/categoria")
       .then(response => response.json())
       .then(data => {
-        // console.log("Mostrando a lista: ", data);
-        this.setState({ listaCategorias: data })
+        this.setState({ categoryList: data })
       });
   }
 
   atualizaEstadoCadastro = (input) => {
-    let nomePropriedade = input.target.name;
+    let propertyName = input.target.name;
 
     this.setState({
-      categoriaCadastrando: {
-        ...this.state.categoriaCadastrando,
+      newCategory: {
+        ...this.state.newCategory,
         [input.target.name]: input.target.value
       }
-    }, () => console.log(this.state.categoriaCadastrando[nomePropriedade]))
+    }, () => console.log(this.state.newCategory[propertyName]))
   }
 
   atualizaEstadoAlterar = (input) => {
-    // console.log("atualizaEstadoAlterar chamada")
-    let nomePropriedade = input.target.name;
+    let propertyName = input.target.name;
 
     this.setState({
-      categoriaAlterando: {
-        ...this.state.categoriaAlterando,
+      changeCategory: {
+        ...this.state.changeCategory,
         [input.target.name]: input.target.value
       }
-    }, () => console.log(this.state.categoriaAlterando[nomePropriedade]))
+    }, () => console.log(this.state.changeCategory[propertyName]))
   }
 
-  cadastrarCategoria(event) {
+  cadastrarCategoria = (event) => {
     event.preventDefault();
-    // console.log("Cadastrando");
-    // console.log(this.state.categoriaCadastrando.nomeCategoria);
+    this.setState({ erroMsg: "" });
     fetch("http://localhost:5000/api/Categoria", {
       method: "POST",
       headers: {
         "Content-Type": "application/json"
       },
-      body: JSON.stringify({ nomeCategoria: this.state.categoriaCadastrando.nomeCategoria })
+      body: JSON.stringify({ categoryName: this.state.newCategory.categoryName })
     })
       .then(response => response.json())
       .then(response => {
-        // console.log(response);
-        this.listarCategorias();
+        this.getCategory();
+        this.setState({
+          erroMsg: "Cadastro efetuado com sucesso!"
+        })
       })
-      .catch(error => console.log(error))
+      .catch(error => {
+        console.log(error)
+        this.setState({
+          erroMsg: "Não é possível cadastrar. Verifique se não há campos vazios ou com dados incorretos."
+        })
+      })
   }
 
-  deletarCategoria(id) {
-    // console.log("Excluindo")
+  deletarCategoria = (id) => {
     fetch("http://localhost:5000/api/categoria/" + id, {
       method: "DELETE",
       headers: {
@@ -102,13 +90,12 @@ class Cad_categoria extends Component {
     })
       .then(response => response.json())
       .then(response => {
-        console.log(response);
-        this.listarCategorias();
-        this.setState(() => ({ listaCategorias: this.state.listaCategorias }))
+        this.getCategory();
+        this.setState(() => ({ categoryList: this.state.categoryList }))
+        // visually return success message here
       })
       .catch(error => {
         console.log(error);
-        // this.setState({erroMsg: "Não foi possível excluir este evento"})
       })
   }
 
@@ -119,14 +106,14 @@ class Cad_categoria extends Component {
   }
 
   alterarCategoria = (categoria) => {
-    this.setState({ categoriaAlterando: categoria })
+    this.setState({ changeCategory: categoria })
     this.toggle();
   }
 
-  salvarAlteracoes(event) {
+  salvarAlteracoes = (event) => {
     event.preventDefault();
-    let categoria_id = this.state.categoriaAlterando.idCategoria;
-    let categoria_put = this.state.categoriaAlterando;
+    let categoria_id = this.state.changeCategory.categoryId;
+    let categoria_put = this.state.changeCategory;
 
     fetch("http://localhost:5000/api/categoria/" + categoria_id, {
       method: "PUT",
@@ -139,7 +126,7 @@ class Cad_categoria extends Component {
       .catch(error => console.log(error))
 
     setTimeout(() => {
-      this.listarCategorias();
+      this.getCategory();
     }, 500)
 
     this.toggle();
@@ -147,68 +134,69 @@ class Cad_categoria extends Component {
 
   render() {
     return (
-      <div>
-        <Header {...this.props} />
-        <div className="fundoCadastro">
-          <div className="cardCadastro">
-            <h2>Categorias Cadastradas</h2>
-            <table>
-              <thead>
-                <tr>
-                  <th>#</th>
-                  <th>Nome Categoria</th>
-                  <th>Ações</th>
-                </tr>
-              </thead>
-              <tbody>
-                {
-                  this.state.listaCategorias.map(function (categoria) {
-                    return (
-                      <tr key={categoria.idCategoria}>
-                        <td>{categoria.idCategoria}</td>
-                        <td>{categoria.nomeCategoria}</td>
-                        <td>
-                          <button onClick={() => this.alterarCategoria(categoria)}>Alterar</button>
-                          <button onClick={() => this.deletarCategoria(categoria.idCategoria)}>Excluir</button>
-                        </td>
-                      </tr>
-                    )
-                  }.bind(this))
-                }
-              </tbody>
-            </table>
+      <>
+        <div>
+          <Header {...this.props} />
+          <div className="fundoCadastro">
+            <div className="cardCadastro">
+              <h2>Categorias Cadastradas</h2>
+              <table>
+                <thead>
+                  <tr>
+                    <th>Identificador</th>
+                    <th>Categoria</th>
+                    <th>Ações</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {
+                    this.state.categoryList.map(categoria =>
+                      (
+                        <tr key={categoria.idCategoria}>
+                          <td>{categoria.idCategoria}</td>
+                          <td>{categoria.nomeCategoria}</td>
+                          <td>
+                            <button onClick={() => this.alterarCategoria(categoria)}>Alterar</button>
+                            <button onClick={() => this.deletarCategoria(categoria.idCategoria)}>Excluir</button>
+                          </td>
+                        </tr>
+                      ))
+                  }
+                </tbody>
+              </table>
 
-            <h2>Cadastro de Categoria</h2>
-            <div className="descricao">
-              <p>Preencha os campos abaixo para efetuar o cadastro da categoria.</p>
-            </div>
-            <form onSubmit={this.cadastrarCategoria}>
-              <div className="campo">
-                <input onChange={this.atualizaEstadoCadastro} type="text" placeholder="Nome da categoria" aria-label="Digite o nome da categoria" name="nomeCategoria" required />
+              <h2>Cadastro de Categoria</h2>
+              <div className="descricao">
+                <p>Preencha os campos abaixo para efetuar o cadastro da categoria.</p>
               </div>
-              <div className="btnCadastro">
-                <button type="submit">Cadastrar</button>
-              </div>
-            </form>
-
-            <MDBContainer>
-              <form onSubmit={this.salvarAlteracoes}>
-                <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
-                  <MDBModalHeader toggle={this.toggle}>Editar {this.state.categoriaAlterando.nomeCategoria}</MDBModalHeader>
-                  <MDBModalBody>
-                    <MDBInput label="Categoria" name="nomeCategoria" value={this.state.categoriaAlterando.nomeCategoria} size="lg" onChange={this.atualizaEstadoAlterar} />
-                  </MDBModalBody>
-                  <MDBModalFooter>
-                    <MDBBtn color="secondary" onClick={this.toggle}>Fechar</MDBBtn>
-                    <MDBBtn color="primary" type="submit">Salvar</MDBBtn>
-                  </MDBModalFooter>
-                </MDBModal>
+              <form onSubmit={this.cadastrarCategoria}>
+                <div className="campo">
+                  <input onChange={this.atualizaEstadoCadastro} type="text" placeholder="Nome da categoria" aria-label="Digite o nome da categoria" name="categoryName" required />
+                </div>
+                <div className="btnCadastro">
+                  <button type="submit">Cadastrar</button>
+                  {this.state.erroMsg && <div className="text-danger">{this.state.erroMsg}</div>}
+                </div>
               </form>
-            </MDBContainer>
+            </div>
           </div>
+          <MDBContainer>
+            <form onSubmit={this.salvarAlteracoes}>
+              <MDBModal isOpen={this.state.modal} toggle={this.toggle}>
+                <MDBModalHeader toggle={this.toggle}>Editar {this.state.changeCategory.categoryName}</MDBModalHeader>
+                <MDBModalBody>
+                  <MDBInput label="Categoria" name="categoryName" value={this.state.changeCategory.categoryName} size="lg" onChange={this.atualizaEstadoAlterar} />
+                </MDBModalBody>
+                <MDBModalFooter>
+                  <MDBBtn color="secondary" onClick={this.toggle}>Fechar</MDBBtn>
+                  <MDBBtn color="primary" type="submit">Salvar</MDBBtn>
+                </MDBModalFooter>
+              </MDBModal>
+            </form>
+          </MDBContainer>
+          <Footer />
         </div>
-        <Footer />
-      </div>
+      </>
     );
   }
 }

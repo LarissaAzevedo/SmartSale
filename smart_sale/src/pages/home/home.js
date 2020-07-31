@@ -20,6 +20,12 @@ import fruta from '../../assets/img/frutas.jpg'
 import legume from '../../assets/img/legume.jpg'
 import cereais from '../../assets/img/cereais.jpg'
 
+// import { getCategories } from '../../services/api';
+import Routes from '../../services/api'
+
+import {getAll} from '../../service'
+
+
 class Home extends Component {
 
   constructor() {
@@ -45,14 +51,36 @@ class Home extends Component {
     this.listarOfertas();
   }
 
-  getCategorias = () => {
-    fetch('http://localhost:5000/api/Categoria')
-      .then(response => response.json())
+  getCategorias = async () => {
+    const pokemon = getAll.getAll().then(res => res)
+    console.log('pokemon :>> ', pokemon);
+    return Routes.getCategories()
       .then(response => {
-        var title = response.slice(0, 4)
-        this.setState({ titulo_categorias: title })
+        console.log(response.data);
+        // let title = response.slice(0, 4);
+        // this.setState({ titulo_categorias: title })
       })
-  }
+      // .then(response => {
+      //   let title = response.slice(0, 4);
+      //   this.setState({ titulo_categorias: title })
+      // })
+  };
+
+
+  // .then(response => {
+  // var title = response.slice(0, 4);
+  // this.setState({ titulo_categorias: title })
+
+  // getCategorias = () => {
+  //   fetch('http://localhost:5000/api/Categoria')
+  //     .then(response => response.json())
+  //     .then(response => {
+  //       console.log("Foi buceta", response)
+  //       var title = response.slice(0, 4) //gambiarra pra pegar só as 4 primeiras categorias
+  //       this.setState({ titulo_categorias: title })
+  //       console.log("state cu: ", this.state.titulo_categorias)
+  //     })
+  // }
 
   getUsuario_1 = () => {
     fetch('http://localhost:5000/api/Usuario/')

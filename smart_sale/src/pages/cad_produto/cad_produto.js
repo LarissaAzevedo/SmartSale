@@ -106,6 +106,7 @@ class Cad_produto extends Component {
     this.setState({
       alterarProduto: produto
     });
+    console.log("Aqui fdp")
     this.toggle();
   }
 

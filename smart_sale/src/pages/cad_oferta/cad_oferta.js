@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Header from '../../components/header/header';
 import Footer from '../../components/footer/footer';
 import { parseJwt } from '../../services/auth';
+import { api } from '../../services/api';
 
 class Cad_oferta extends Component {
 
@@ -141,7 +142,7 @@ class Cad_oferta extends Component {
                   value={this.state.postOferta.titulo}
                   onChange={this.postSetState}
                 />
-              
+
               </div>
               <div className="campo">
                 <select name="idProduto"
@@ -242,7 +243,6 @@ class Cad_oferta extends Component {
               </div>
               <hr />
               <div className="fotos">
-
                 <input
                   type="file"
                   placeholder="Adicione fotos, você também pode arrastá-las"
@@ -250,9 +250,7 @@ class Cad_oferta extends Component {
                   name="foto"
                   ref={this.state.postOferta.foto} />
               </div>
-
               {this.state.erroMsg && <div className="text-danger">{this.state.erroMsg}</div>}
-
               <div className="btnCadastro">
                 <button
                   type="submit"
